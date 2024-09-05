@@ -49,7 +49,7 @@ $$
 M_i = Q(Z_i; C) = \arg \min_{k \in [K]} \| Z_i - e(k) \|_2 \tag{1}
 $$
 
-&emsp;&emsp;其中 $1 \leq i \leq L, M \in [K]^L$ 表示码映射索引。因此，潜在变量 $ Z_i $ 可以通过距离最近的码本 $\mathcal{C}$ 中的 1-of-$K$ 嵌入向量来索引和量化。
+&emsp;&emsp;其中 $1 \leq i \leq L, M \in [K]^L$ 表示码映射索引。因此，潜在变量 $Z_i$ 可以通过距离最近的码本 $\mathcal{C}$ 中的 1-of-$K$ 嵌入向量来索引和量化。
 
 &emsp;&emsp;量化后的嵌入码 $M_i$ 可以表示为：
 
@@ -69,7 +69,7 @@ $$
 \mathcal{L}_{VQ} = \underbrace{\mathcal{L}_{CE}(X, \hat{X})}_{\mathcal{L}_{rec}} + \underbrace{\| \text{sg}[Z] - \tilde{Z} \|_2^2}_{\mathcal{L}_{code}} + \beta \underbrace{\| Z - \text{sg}[\tilde{Z}] \|_2^2}_{\mathcal{L}_{commit}}, \tag{4}
 $$
 
-&emsp;&emsp;其中 $\text{sg}[\cdot]$ 表示前述的停止梯度操作符，$\beta \in [0, 1]$ 是一个折中超参数（默认值为 0.5）。第一个术语 $ \mathcal{L}_{rec} $ 表示重构损失，用于在 VQ-VAE 词汇学习过程中优化编码器和解码器（图1中的阶段1）。中间项 $ \mathcal{L}_{code} $ 计算平方误差，作为码本损失，通过推送嵌入向量朝编码器输出方向来更新码嵌入。第三项 $\mathcal{L}_{commit}$ 是一个约束损失，确保在 VQ-VAE 词汇学习过程中，码映射函数 $Q(\cdot, \cdot)$ 的训练稳定性。
+&emsp;&emsp;其中 $\text{sg}[\cdot]$ 表示前述的停止梯度操作符，$\beta \in [0, 1]$ 是一个折中超参数（默认值为 0.5）。第一个术语 $\mathcal{L}_{rec}$ 表示重构损失，用于在 VQ-VAE 词汇学习过程中优化编码器和解码器（图1中的阶段1）。中间项 $\mathcal{L}_{code}$ 计算平方误差，作为码本损失，通过推送嵌入向量朝编码器输出方向来更新码嵌入。第三项 $\mathcal{L}_{commit}$ 是一个约束损失，确保在 VQ-VAE 词汇学习过程中，码映射函数 $Q(\cdot, \cdot)$ 的训练稳定性。
 
 &emsp;&emsp;在本文中，作者通过指数移动平均（EMA）更新嵌入来优化码本 $\mathcal{C}$，而不是使用损失 $\mathcal{L}_{code}$：
 
@@ -288,12 +288,12 @@ $$
     display: inline-block;
     color: #999;
     padding: 2px;">
-      表7 通过UMAP对CVC数据集上的HRQ码本进行可视化。每个码本标签是通过计算线性分类器（基于HRQ标记化序列学习）中最相关的类别，并使用Grad-CAM得到的。五边形点代表第3层码本的编码，浅色圆点代表第6层码本的编码。结果显示，HRQ词汇在谱系内外的模式感知能力非常出色。
+      图4 通过UMAP对CVC数据集上的HRQ码本进行可视化。每个码本标签是通过计算线性分类器（基于HRQ标记化序列学习）中最相关的类别，并使用Grad-CAM得到的。五边形点代表第3层码本的编码，浅色圆点代表第6层码本的编码。结果显示，HRQ词汇在谱系内外的模式感知能力非常出色。
   	</div>
 </center>
 
 
-&emsp;&emsp;鉴于其现实意义，作者对这一问题进行了实证分析，以验证VQ标记化器的有效性。图5显示，作者的HRQ标记化器能够学习判别性基因组嵌入，相同谱系的变种聚类在一起，而不同谱系的变种分离开来，展示了其对谱系内外模式的识别能力。此外，扩展的码本成功捕捉到了细粒度的模式。例如，Lambda变种由Delta变异而来，虽然有部分相似特征，但属于不同谱系。图5中的Lambda簇靠近Delta簇，体现了HRQ的生物学意义。
+&emsp;&emsp;鉴于其现实意义，作者对这一问题进行了实证分析，以验证VQ标记化器的有效性。图4显示，作者的HRQ标记化器能够学习判别性基因组嵌入，相同谱系的变种聚类在一起，而不同谱系的变种分离开来，展示了其对谱系内外模式的识别能力。此外，扩展的码本成功捕捉到了细粒度的模式。例如，Lambda变种由Delta变异而来，虽然有部分相似特征，但属于不同谱系。图5中的Lambda簇靠近Delta簇，体现了HRQ的生物学意义。
 
 ### 4、 总结
 &emsp;&emsp;文章提出了VQDNA，一种利用VQ码本作为可学习基因组词汇的创新框架，避免了手工偏差，实现了模式感知的基因组标记化。为进一步提升VQ标记化器的性能，作者提出了分层残差量化（HRQ），通过多尺度码本的层次设计丰富基因组词汇。大量实验显示，VQDNA在32个数据集上表现出色，具有优异的泛化能力和生物学意义。
@@ -303,7 +303,3 @@ $$
 ### 5、 启发
 待续。。
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
-</script>
